@@ -33,11 +33,30 @@ app.post("/backend/contact", async (req, res) => {
     });
   }
 
-  try {
+  // try {
 
+  //   const mailOptions = {
+  //     from: `"${name}" <${email}>`,
+  //     to: process.env.EMAIL_USER,
+  //     subject: `Nexora Contact: ${subject}`,
+  //     html: `
+  //       <h2>New Contact Message - Nexora Website</h2>
+  //       <p><b>Name:</b> ${name}</p>
+  //       <p><b>Email:</b> ${email}</p>
+  //       <p><b>Subject:</b> ${subject}</p>
+  //       <p><b>Message:</b></p>
+  //       <p>${message}</p>
+  //       <br/>
+  //       <hr/>
+  //       <p>This message was sent from Nexora Contact Form.</p>
+  //     `
+  //   };
+
+  try {
     const mailOptions = {
-      from: `"${name}" <${email}>`,
-      to: process.env.EMAIL_USER,
+      from: `"${name}" <${process.env.EMAIL_USER}>`, // Sent by your bot
+      replyTo: email,                               // Replies go directly to the user
+      to: process.env.RECEIVER_EMAIL,               // The inbox receiving the message
       subject: `Nexora Contact: ${subject}`,
       html: `
         <h2>New Contact Message - Nexora Website</h2>
@@ -48,7 +67,7 @@ app.post("/backend/contact", async (req, res) => {
         <p>${message}</p>
         <br/>
         <hr/>
-        <p>This message was sent from Nexora Contact Form.</p>
+        <p>This message was sent from the Nexora Contact Form.</p>
       `
     };
 
